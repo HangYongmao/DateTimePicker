@@ -31,6 +31,24 @@ public class MainActivity extends AppCompatActivity {
         day = calendar.get(Calendar.DAY_OF_MONTH);
         hour = calendar.get(Calendar.HOUR_OF_DAY);
         minute = calendar.get(Calendar.MINUTE);
-        setTitle(year + "-" + month + "-" + day + "-" + hour + "-" + minute);
+        setTitle(year + "-" + month + "-" + day + " " + hour + ":" + minute);
+        datePicker = (DatePicker) findViewById(R.id.date_picker);
+        timePicker = (TimePicker) findViewById(R.id.time_picker);
+
+        // datePicker初始化
+        datePicker.init(year, calendar.get(Calendar.MONTH), day, new DatePicker.OnDateChangedListener() {
+            @Override
+            public void onDateChanged(DatePicker datePicker, int year, int monthOfYear, int dayOfMonth) {
+                setTitle(year + "-" + (monthOfYear + 1) + "-" + dayOfMonth);
+            }
+        });
+
+        // timePicker
+        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
+                setTitle(hourOfDay + ":" + minute);
+            }
+        });
     }
 }
